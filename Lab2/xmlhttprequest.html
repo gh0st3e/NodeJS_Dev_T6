@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="info"></div>
+</body>
+<script>
+    var xr = new  XMLHttpRequest();
+    xr.open('GET','http://localhost:5000/api/name',true)
+    xr.send()
+ 
+    let info = document.getElementById("info");
+
+    if (xr.status==200){
+        info.innerHTML = xr.responseText;
+    }else{
+        info.innerHTML = "Couldn't get response from server"
+    }
+</script>
+</html>
