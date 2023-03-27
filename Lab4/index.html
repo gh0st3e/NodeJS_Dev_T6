@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Laba4</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div style="padding:20px" id="get_result"></div>
+    <button onclick="Get()">GET</button>
+
+    <form id="insertForm">
+        <input type="text" id="insertID">
+        <input type="text" id="insertName">
+        <input type="text" id="insertBDAY">
+        <input type="button" value="insert" onclick="Post()">
+    </form>
+
+    <form id="updateForm">
+        <input type="text" id="updateID">
+        <input type="text" id="updateName">
+        <input type="text" id="updateBDAY">
+        <input type="button" value="update" onclick="Put()">
+    </form>
+
+    <form id="delForm">
+        <input type="text" id="delID">
+        <input type="button" value="update" onclick="Delete()">
+    </form>
+
+</body>
+<script>
+    function Post() {
+        console.log('POST');
+
+        let form = document.getElementById("insertForm")
+
+        id = form[0].value
+        name = form[1].value
+        bday = form[2].value
+
+        fetch('http://localhost:9000/api/db', {
+            method: 'POST', mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ id: id, name: name, bday: bday })
+        })
+            .then(response => { return response.json(); })
+            .then((pdata) => { console.log('POST.pdata', pdata); })
+    }
+    function Put() {
+        console.log('Put');
+
+        let form = document.getElementById("updateForm")
+
+        id = form[0].value
+        name = form[1].value
+        bday = form[2].value
+
+        fetch(`http://localhost:9000/api/db?id=${+id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ name: name, bday: bday })
+        })
+            .then(response => response.json())
+            .then((pdata) => { console.log('POST.pdata', pdata); })
+            .catch((error) => console.log('Error:', error));
+    }
+    function Delete() {
+        console.log('Delete');
+
+        let form = document.getElementById("delForm")
+
+        id = form[0].value
+
+        fetch(`http://localhost:9000/api/db?id=${+id}`, {
+            method: 'Delete',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+        })
+            .then(response => response.text())
+            .then((pdata) => { console.log('POST.pdata', pdata); })
+            .catch((error) => console.log('Error:', error));
+    }
+    function Get() {
+        console.log('GET');
+        fetch('http://localhost:9000/api/db', {
+            method: 'GET', mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        })
+            .then(response => { return response.json(); })
+            .then((pdata) => {
+
+                console.log('pdata', pdata);
+                document.getElementById('get_result').innerHTML = '';
+                pdata.forEach(el => { document.getElementById('get_result').innerHTML += (el.id + '.' + el.name + '' + el.bday + '<br/>'); });
+            });
+    }
+
+
+</script>
+
+</html>
