@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузить изображение для черепашки-ниндзя</title>
+</head>
+
+<body>
+    <h1>Загрузить изображение для черепашки-ниндзя</h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="turtleId">Идентификатор черепашки-ниндзя:</label>
+        <input type="text" id="turtleId" name="turtleId" required><br>
+
+        <label for="image">Изображение:</label>
+        <input type="file" id="image" name="image" accept="image/*" required><br>
+
+        <input type="button" onclick="SendData()">Загрузить изображение</button>
+    </form>
+</body>
+
+<script>
+
+    function SendData() {
+        const form = document.querySelector('form');
+        const formData = new FormData(form);
+
+        fetch('http://localhost:9007/upload', {
+            method: 'POST',
+            body: formData,
+
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+
+</script>
+
+</html>
