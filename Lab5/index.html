@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nodemailer</title>
+
+    <style>
+        .main_field {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            justify-content: space-between;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="mail_field">
+        <form>
+            <input placeholder="Sender Email" required id="sender_mail" type="email">
+            <input placeholder="Receiver Email" required id="reciver_mail" type="email">
+            <input placeholder="Message" required id="msg" type="text">
+            <input type="button" value="Send" onclick="Send()">
+        </form>
+        <input type="button" value="defaultSender" onclick="FillSender()">
+        <div id="responce"></div>
+    </div>
+
+
+</body>
+<script>
+    function Send() {
+        console.log("Send Started")
+
+        const form = document.getElementsByTagName('form')[0]
+        const responce = document.getElementById('responce')
+
+        sender = form[0].value
+        receiver = form[1].value
+        msg = form[2].value
+
+        console.log(sender)
+        console.log(receiver)
+        console.log(msg)
+
+
+        fetch('http://localhost:8086/send', {
+            method: 'POST', mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ sender: sender, receiver: receiver, msg: msg })
+        })
+            .then(response => { return response })
+            .then((pdata) => { console.log('POST.pdata', pdata); })
+    }
+    function FillSender() {
+        const form = document.getElementsByTagName('form')[0]
+        form[0].value = 'tylerdurdenwho34@gmail.com'
+    }
+</script>
+
+</html>

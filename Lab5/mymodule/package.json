@@ -1,0 +1,16 @@
+{
+  "name": "ghostfed_m0605",
+  "version": "1.0.0",
+  "description": "module for lab i will delete it i promise",
+  "main": "m0603.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "ghostfed_m0605": "^1.0.0",
+    "nodemailer": "^6.9.1",
+    "nodemailer-smtp-transport": "^2.7.4"
+  }
+}
