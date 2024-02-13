@@ -7,7 +7,7 @@ const globalOptions = {
     }
 };
 
-const sequelize = new Sequelize('LDI', 'postgres', '8403', {
+const sequelize = new Sequelize('LDI', 'postgres', '****', {
     host: 'localhost',
     dialect: 'postgres',
     pool: {
